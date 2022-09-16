@@ -7,22 +7,22 @@ class Constants
 
   # Workspace path
   def self.WORKSPACE_PATH
-    './{PROJECT_NAME}.xcworkspace'
+    './WeatherToday.xcworkspace'
   end
 
   # Project path
   def self.PROJECT_PATH
-    './{PROJECT_NAME}.xcodeproj'
+    './WeatherToday.xcodeproj'
   end
 
   # bundle ID for Staging app
   def self.BUNDLE_ID_STAGING
-    '{BUNDLE_ID_STAGING}'
+    'com.example.weathertoday'
   end
 
   # bundle ID for Production app
   def self.BUNDLE_ID_PRODUCTION
-    '{BUNDLE_ID_PRODUCTION}'
+    'com.example.weathertoday'
   end
 
   #################
@@ -50,17 +50,17 @@ class Constants
 
   # a scheme name for testing
   def self.TESTS_SCHEME
-    '{PROJECT_NAME} Staging'
+    'WeatherToday Staging'
   end
 
   # a target name for tests
   def self.TESTS_TARGET
-    '{PROJECT_NAME}Tests'
+    'WeatherTodayTests'
   end
 
   # a target name for UI tests
   def self.UI_TESTS_TARGET
-    '{PROJECT_NAME}UITests'
+    'WeatherTodayUITests'
   end
 
   # xcov output directory path
@@ -98,32 +98,32 @@ class Constants
 
   # an staging environment scheme name
   def self.SCHEME_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'WeatherToday Staging'
   end
 
   # a Production environment scheme name
   def self.SCHEME_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'WeatherToday'
   end
 
   # an staging product name
   def self.PRODUCT_NAME_STAGING
-    '{PROJECT_NAME} Staging'
+    'WeatherToday Staging'
   end
 
   # a staging TestFlight product name
   def self.PRODUCT_NAME_STAGING_TEST_FLIGHT
-    '{PROJECT_NAME} TestFlight'
+    'WeatherToday TestFlight'
   end
 
   # a Production product name
   def self.PRODUCT_NAME_PRODUCTION
-    '{PROJECT_NAME}'
+    'WeatherToday'
   end
 
   # a main target name
   def self.MAIN_TARGET_NAME
-    '{PROJECT_NAME}'
+    'WeatherToday'
   end
 
 end

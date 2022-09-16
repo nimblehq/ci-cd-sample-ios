@@ -1,7 +1,7 @@
 import Nimble
 import Quick
 
-@testable import {PROJECT_NAME}
+@testable import WeatherToday
 
 final class OptionalUnwrapSpec: QuickSpec {
 

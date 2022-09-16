@@ -51,10 +51,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
+      BUNDLE_ID: com.example.weathertoday
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
+      BITRISE_SCHEME: WeatherToday
   deploy_release_firebase:
     steps:
     - activate-ssh-key@4:
@@ -92,10 +92,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
+      BUNDLE_ID: com.example.weathertoday
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
+      BITRISE_SCHEME: WeatherToday
   deploy_staging:
     steps:
     - activate-ssh-key@4:
@@ -133,10 +133,10 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: com.example.weathertoday
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: WeatherToday Staging
   test:
     steps:
     - activate-ssh-key@4:
@@ -171,15 +171,15 @@ workflows:
     envs:
     - opts:
         is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
+      BUNDLE_ID: com.example.weathertoday
     - opts:
         is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+      BITRISE_SCHEME: WeatherToday Staging
 app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: {PROJECT_NAME}.xcworkspace
+    BITRISE_PROJECT_PATH: WeatherToday.xcworkspace
   - opts:
       is_expand: false
     TEAM_ID: TEAMID

@@ -9,6 +9,6 @@ labels: "type : feature"
 
 Describe the big picture of the feature and why it's needed. 
  
-## Who Benefits?
+## Acceptance Criteria
 
-Describe who will be the beneficiaries e.g. everyone, specific chapters, clients...
+List down how the user story will be tested and what criteria are necessary for the user story to be accepted.
