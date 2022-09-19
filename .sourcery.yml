@@ -1,12 +1,12 @@
 sources:
-  - {PROJECT_NAME}/Sources
+  - WeatherToday/Sources
 templates:
   - tools/sourcery/templates
 output:
-  {PROJECT_NAME}Tests/Sources/Mocks/Sourcery 
+  WeatherTodayTests/Sources/Mocks/Sourcery
 args:
   autoMockableTestableImports:
-    - {PROJECT_NAME}
+    - WeatherToday
   autoMockableImports:
     - RxSwift
     - RxCocoa
