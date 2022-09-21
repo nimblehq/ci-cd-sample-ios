@@ -10,33 +10,15 @@ def testing_pods
   # TODO: Remove or update the version of `1.8.0` to the newest version (not 1.8.1) when init a new project.
   # Currently, there is a bug on `1.8.1` - the newest version.
   pod 'Sourcery', '1.8.0'
-  pod 'SwiftFormat/CLI'
 end
 
 target 'WeatherToday' do
-  # UI
-  pod 'Kingfisher'
-  pod 'SnapKit'
 
   # Rx
   pod 'RxAlamofire'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxSwift'
-
-  # Storage
-  pod 'KeychainAccess'
-
-  # Tools
-  pod 'Firebase/Crashlytics'
-  pod 'IQKeyboardManagerSwift'
-  pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
-  pod 'R.swift'
-  pod 'Resolver' # Needs Cocoapods on iOS 11 to support Resolver
-
-  # Development
-  pod 'SwiftLint'
-  pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
 
   target 'WeatherTodayTests' do
     inherit! :search_paths
