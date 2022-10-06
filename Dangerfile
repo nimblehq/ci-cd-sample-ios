@@ -15,7 +15,7 @@ swiftformat.check_format
 # XCODE SUMMARY
 xcode_summary.ignored_files = 'Pods/**'
 xcode_summary.inline_mode = true
-xcode_summary.report 'result/WeatherTestResult.xcresult'
+xcode_summary.report './result/WeatherTestResult.xcresult'
 
 # Swiftlint
 swiftlint.binary_path = './Pods/SwiftLint/swiftlint'
@@ -41,9 +41,19 @@ xcov.report(
 )
 
 # Post details XCOV report
-markdown("## Coverage report details")
-File.open("xcov_report/report.md", "r") do |f|
+isLineIncluded = false
+message = "## Coverage Table\n\n"
+File.open("./xcov_report/report.md", "r") do |f|
     f.each_line do |line|
-      markdown(line)
+      if line.include? "Files changed"
+        isLineIncluded = true
+      end
+      if line.include? "Powered by"
+        isLineIncluded = false
+      end
+      if isLineIncluded == true
+        message << line
+      end
     end
 end
+markdown message
