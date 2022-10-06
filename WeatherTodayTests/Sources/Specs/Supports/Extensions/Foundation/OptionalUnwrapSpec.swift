@@ -3,7 +3,7 @@ import Quick
 
 @testable import WeatherToday
 
-final class OptionalUnwrapSpec: QuickSpec {
+final class OptionalUnwrapSpec: QuickSpec{
 
     override func spec() {
 
