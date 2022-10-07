@@ -9,8 +9,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        let homeViewController = HomeViewController()
-        let navController = UINavigationController(rootViewController: homeViewController)
+        let weatherViewController = WeatherViewController()
+        let navController = UINavigationController(rootViewController: weatherViewController)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()

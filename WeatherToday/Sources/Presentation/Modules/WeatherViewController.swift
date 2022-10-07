@@ -1,6 +1,6 @@
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class WeatherViewController: UIViewController {
 
     private let cityTextField: UITextField
     private let temperatureLabel: UILabel
@@ -89,7 +89,7 @@ final class HomeViewController: UIViewController {
 }
 
 
-extension HomeViewController: UITextFieldDelegate {
+extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return false
