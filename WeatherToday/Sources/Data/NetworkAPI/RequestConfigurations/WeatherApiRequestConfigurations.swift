@@ -15,7 +15,7 @@ struct WeatherApiRequestConfigurations: RequestConfiguration {
     var endpoint: String
     var method: HTTPMethod
     var encoding: ParameterEncoding
-    var parameters: Parameters
+    var parameters: Parameters?
 
     init() {
         baseURL = Configuration.baseWeatherURL
@@ -26,7 +26,7 @@ struct WeatherApiRequestConfigurations: RequestConfiguration {
     }
 
     mutating func configure(forCity name: String) -> WeatherApiRequestConfigurations {
-        endpoint = "data/2.5/weather?"
+        endpoint = "data/2.5/weather"
         parameters = [
             "q": name,
             "appid": Configuration.weatherApiKey,

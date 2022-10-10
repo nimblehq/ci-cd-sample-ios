@@ -13,11 +13,15 @@ final class WeatherRepository: WeatherRepositoryProtocol {
 
     private var networkApi: NetworkAPIProtocol
 
-    init(network: NetworkAPI) {
+    init(network: WeatherNetworkAPI) {
         networkApi = network
     }
 
-    func getWeatherData(cityName: String) -> Single<Weather> {
-        return .just(WeatherApi(temperature: 10.0, humidity: 10.0))
+    func getWeatherData(cityName: String) -> Single<WeatherApi> {
+        var weatherConfiguration = WeatherApiRequestConfigurations()
+        return networkApi.performRequest(
+            weatherConfiguration.configure(forCity: cityName),
+            for: WeatherApi.self
+        ).map { $0 as WeatherApi }
     }
 }

@@ -10,5 +10,5 @@ import RxSwift
 
 protocol WeatherRepositoryProtocol: AnyObject {
 
-    func getWeatherData(cityName: String) -> Single<Weather>
+    func getWeatherData(cityName: String) -> Single<WeatherApi>
 }

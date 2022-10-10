@@ -1,14 +1,15 @@
 //
-//  NetworkAPI.swift
+//  WeatherNetworkAPI.swift
 //
 
 import Alamofire
 import Foundation
 import RxSwift
 
-final class NetworkAPI: NetworkAPIProtocol {
+final class WeatherNetworkAPI: NetworkAPIProtocol {
 
     private let decoder: JSONDecoder
+    private let session: Session = Session()
 
     init(decoder: JSONDecoder = JSONDecoder()) {
         self.decoder = decoder
@@ -16,7 +17,7 @@ final class NetworkAPI: NetworkAPIProtocol {
 
     func performRequest<T: Decodable>(_ configuration: RequestConfiguration, for type: T.Type) -> Single<T> {
         request(
-            session: Session(),
+            session: session,
             configuration: configuration,
             decoder: decoder
         )

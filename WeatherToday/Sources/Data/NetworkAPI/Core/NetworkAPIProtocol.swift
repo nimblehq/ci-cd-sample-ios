@@ -27,7 +27,7 @@ extension NetworkAPIProtocol {
             interceptor: configuration.interceptor
         )
         .responseData()
-        .flatMap { _, data -> Observable<T> in
+        .flatMap { response, data -> Observable<T> in
             Observable.create { observer in
                 do {
                     let decodable = try decoder.decode(T.self, from: data)

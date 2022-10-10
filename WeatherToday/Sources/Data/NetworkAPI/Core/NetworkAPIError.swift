@@ -8,4 +8,5 @@ enum NetworkAPIError: Error {
 
     case generic
     case dataNotFound
+    case wrongInputValue
 }

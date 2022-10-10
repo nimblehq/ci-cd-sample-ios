@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 final class WeatherViewController: UIViewController {
 
@@ -7,6 +8,8 @@ final class WeatherViewController: UIViewController {
     private lazy var humidityLabel: UILabel = UILabel()
     private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    private let disposeBag = DisposeBag()
+    let net = WeatherNetworkAPI()
 
     init () {
         super.init(nibName: nil, bundle: nil)
@@ -67,6 +70,16 @@ final class WeatherViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let weatherRepo = WeatherRepository(network: net)
+        let usecase = WeatherUseCase(weatherRepository: weatherRepo)
+        let d = usecase.getWeather(forCity: "New York").subscribe { event in
+            switch event {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }.disposed(by: disposeBag)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
