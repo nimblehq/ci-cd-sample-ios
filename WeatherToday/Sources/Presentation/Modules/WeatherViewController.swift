@@ -8,10 +8,12 @@ final class WeatherViewController: UIViewController {
     private lazy var humidityLabel: UILabel = UILabel()
     private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
-    private let disposeBag = DisposeBag()
-    let net = WeatherNetworkAPI()
 
-    init () {
+    private let disposeBag = DisposeBag()
+    private let viewModel: WeatherViewModelProtocol
+
+    init (viewModel: WeatherViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -21,6 +23,29 @@ final class WeatherViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
+        bindOutput()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateConstraintForCurrentOrientation()
+    }
+
+    private func bindOutput() {
+        viewModel.output.temperature.emit(with: self) { owner, temperatureValue in
+            owner.temperatureLabel.text = temperatureValue
+        }.disposed(by: disposeBag)
+        viewModel.output.humidity.emit(with: self) { owner, humidityValue in
+            owner.humidityLabel.text = humidityValue
+        }.disposed(by: disposeBag)
+    }
+
+    private func setUpView() {
         landscapeTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
         portraitTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
         view.backgroundColor = .white
@@ -68,25 +93,6 @@ final class WeatherViewController: UIViewController {
         ])
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let weatherRepo = WeatherRepository(network: net)
-        let usecase = WeatherUseCase(weatherRepository: weatherRepo)
-        let d = usecase.getWeather(forCity: "New York").subscribe { event in
-            switch event {
-            case .success(let data):
-                print(data)
-            case .failure(let error):
-                print(error)
-            }
-        }.disposed(by: disposeBag)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateConstraintForCurrentOrientation()
-    }
-
     private func updateConstraintForCurrentOrientation() {
         let isLandscape = UIDevice.current.orientation.isLandscape
         portraitTopConstraint.isActive = false
@@ -100,6 +106,7 @@ final class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
+        viewModel.input.didFinishTyping(cityName: cityTextField.text ?? "")
         return false
     }
 }
