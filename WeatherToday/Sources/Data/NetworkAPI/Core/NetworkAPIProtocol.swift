@@ -26,6 +26,7 @@ extension NetworkAPIProtocol {
             headers: configuration.headers,
             interceptor: configuration.interceptor
         )
+        .validate(statusCode: 200..<300)
         .responseData()
         .flatMap { response, data -> Observable<T> in
             Observable.create { observer in
