@@ -2,16 +2,13 @@ import UIKit
 
 final class WeatherViewController: UIViewController {
 
-    private let cityTextField: UITextField
-    private let temperatureLabel: UILabel
-    private let humidityLabel: UILabel
+    lazy private var cityTextField: UITextField = UITextField()
+    lazy private var temperatureLabel: UILabel = UILabel()
+    lazy private var humidityLabel: UILabel = UILabel()
     private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
     init () {
-        cityTextField = UITextField()
-        temperatureLabel = UILabel()
-        humidityLabel = UILabel()
         super.init(nibName: nil, bundle: nil)
     }
 
