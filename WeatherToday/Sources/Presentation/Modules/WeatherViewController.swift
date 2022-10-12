@@ -76,6 +76,8 @@ final class WeatherViewController: UIViewController {
 
     private func updateConstraintForCurrentOrientation() {
         let isLandscape = UIDevice.current.orientation.isLandscape
+        portraitTopConstraint.isActive = false
+        landscapeTopConstraint.isActive = false
         portraitTopConstraint.isActive = !isLandscape
         landscapeTopConstraint.isActive = isLandscape
     }
