@@ -18,7 +18,7 @@ final class Navigator {
     private func viewController(from scene: Scene) -> UIViewController {
         switch scene {
         case .home:
-            return HomeViewController()
+            return WeatherViewController()
         }
     }
 }
