@@ -34,6 +34,8 @@ PODS:
   - Sourcery (1.8.0):
     - Sourcery/CLI-Only (= 1.8.0)
   - Sourcery/CLI-Only (1.8.0)
+  - SwiftFormat/CLI (0.49.18)
+  - SwiftLint (0.49.1)
 
 DEPENDENCIES:
   - Nimble
@@ -45,6 +47,8 @@ DEPENDENCIES:
   - RxNimble/RxTest
   - RxSwift
   - Sourcery (= 1.8.0)
+  - SwiftFormat/CLI
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
@@ -61,6 +65,8 @@ SPEC REPOS:
     - RxSwift
     - RxTest
     - Sourcery
+    - SwiftFormat
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
@@ -76,7 +82,9 @@ SPEC CHECKSUMS:
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   Sourcery: 6f5fe49b82b7e02e8c65560cbd52e1be67a1af2e
+  SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 8c4cd3161390b5cab4be4331e580d90ee984d926
+PODFILE CHECKSUM: 004de57fcc92d3d8885727f0f0cb45fdfa900f9c
 
 COCOAPODS: 1.11.3

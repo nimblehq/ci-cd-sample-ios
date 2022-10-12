@@ -10,6 +10,8 @@ def testing_pods
   # TODO: Remove or update the version of `1.8.0` to the newest version (not 1.8.1) when init a new project.
   # Currently, there is a bug on `1.8.1` - the newest version.
   pod 'Sourcery', '1.8.0'
+  pod 'SwiftFormat/CLI'
+  pod 'SwiftLint'
 end
 
 target 'WeatherToday' do
