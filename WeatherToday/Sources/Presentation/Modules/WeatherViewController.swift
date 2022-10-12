@@ -2,9 +2,9 @@ import UIKit
 
 final class WeatherViewController: UIViewController {
 
-    lazy private var cityTextField: UITextField = UITextField()
-    lazy private var temperatureLabel: UILabel = UILabel()
-    lazy private var humidityLabel: UILabel = UILabel()
+    private lazy var cityTextField: UITextField = UITextField()
+    private lazy var temperatureLabel: UILabel = UILabel()
+    private lazy var humidityLabel: UILabel = UILabel()
     private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
@@ -75,13 +75,9 @@ final class WeatherViewController: UIViewController {
     }
 
     private func updateConstraintForCurrentOrientation() {
-        if UIDevice.current.orientation.isLandscape {
-            portraitTopConstraint.isActive = false
-            landscapeTopConstraint.isActive = true
-        } else {
-            landscapeTopConstraint.isActive = false
-            portraitTopConstraint.isActive = true
-        }
+        let isLandscape = UIDevice.current.orientation.isLandscape
+        portraitTopConstraint.isActive = !isLandscape
+        landscapeTopConstraint.isActive = isLandscape
     }
 }
 
