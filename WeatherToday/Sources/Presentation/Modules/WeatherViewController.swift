@@ -37,12 +37,13 @@ final class WeatherViewController: UIViewController {
     }
 
     private func bindOutput() {
-        viewModel.output.temperature.emit(with: self) { owner, temperatureValue in
-            owner.temperatureLabel.text = temperatureValue
-        }.disposed(by: disposeBag)
-        viewModel.output.humidity.emit(with: self) { owner, humidityValue in
-            owner.humidityLabel.text = humidityValue
-        }.disposed(by: disposeBag)
+        viewModel.output.temperature
+            .emit(to: temperatureLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.humidity
+            .emit(to: humidityLabel.rx.text)
+            .disposed(by: disposeBag)
     }
 
     private func setUpView() {

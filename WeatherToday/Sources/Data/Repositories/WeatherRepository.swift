@@ -18,9 +18,9 @@ final class WeatherRepository: WeatherRepositoryProtocol {
     }
 
     func getWeatherData(cityName: String) -> Single<WeatherApi> {
-        var weatherConfiguration = WeatherApiRequestConfigurations()
+        let weatherApiConfiguration = WeatherApiRequestConfigurations.get(cityName: cityName)
         return networkApi.performRequest(
-            weatherConfiguration.configure(forCity: cityName),
+            weatherApiConfiguration,
             for: WeatherApi.self
         ).map { $0 as WeatherApi }
     }

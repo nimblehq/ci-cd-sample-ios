@@ -9,29 +9,37 @@
 import Foundation
 import Alamofire
 
-struct WeatherApiRequestConfigurations: RequestConfiguration {
+enum WeatherApiRequestConfigurations: RequestConfiguration {
 
-    var baseURL: String
-    var endpoint: String
-    var method: HTTPMethod
-    var encoding: ParameterEncoding
-    var parameters: Parameters?
+    case get(cityName: String)
 
-    init() {
-        baseURL = Configuration.baseWeatherURL
-        endpoint = ""
-        method = .get
-        encoding = URLEncoding.default
-        parameters = [:]
+    var baseURL: String {
+        Configuration.baseWeatherURL
     }
 
-    mutating func configure(forCity name: String) -> WeatherApiRequestConfigurations {
-        endpoint = "data/2.5/weather"
-        parameters = [
-            "q": name,
-            "appid": Configuration.weatherApiKey,
-            "units": "metric"
-        ]
-        return self
+    var endpoint: String {
+        "data/2.5/weather"
+    }
+
+    var method: HTTPMethod {
+        switch self {
+        case .get(_):
+            return HTTPMethod.get
+        }
+    }
+
+    var encoding: ParameterEncoding {
+        URLEncoding.default
+    }
+
+    var parameters: Parameters? {
+        switch self {
+        case .get(let cityName):
+            return [
+                "q": cityName,
+                "appid": Configuration.weatherApiKey,
+                "units": "metric"
+            ]
+        }
     }
 }
