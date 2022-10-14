@@ -13,15 +13,13 @@ struct WeatherApi: Weather, Decodable {
 
     enum CodingKeys: String, CodingKey {
         case main
-    }
-
-    enum MainCodingKeys: String, CodingKey {
-        case temp, humidity
+        case temp
+        case humidity
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let main = try container.nestedContainer(keyedBy: MainCodingKeys.self, forKey: .main)
+        let main = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .main)
         temperature = try main.decode(Double.self, forKey: .temp)
         humidity = try main.decode(Double.self, forKey: .humidity)
     }

@@ -6,8 +6,8 @@
 //  Copyright © 2022 Nimble. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 enum WeatherApiRequestConfigurations: RequestConfiguration {
 

@@ -12,7 +12,7 @@ final class WeatherViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: WeatherViewModelProtocol
 
-    init (viewModel: WeatherViewModelProtocol) {
+    init(viewModel: WeatherViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

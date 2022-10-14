@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 
 protocol WeatherViewModelInput {
+
     func didFinishTyping(cityName: String)
 }
 

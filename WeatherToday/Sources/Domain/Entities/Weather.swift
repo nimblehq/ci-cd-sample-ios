@@ -7,16 +7,7 @@
 //
 
 protocol Weather {
+
     var temperature: Double { get }
     var humidity: Double { get }
-}
-
-
-struct WeatherModel: Decodable {
-    let main: WeatherN
-}
-
-struct WeatherN: Decodable {
-    let temp: Double
-    let humidity: Double
 }

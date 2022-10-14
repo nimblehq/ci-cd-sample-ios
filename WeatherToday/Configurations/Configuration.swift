@@ -31,20 +31,18 @@ enum Configuration: String {
 
     static var baseWeatherURL: String {
         guard let urlValue = Bundle.main.infoDictionary?["WEATHER_API_BASE_URL"] as? String else {
-            fatalError("No URL Found")
+            print("Error: did't find url in configuration file")
+            return ""
         }
         return "https://\(urlValue)/"
     }
 
     static var weatherApiKey: String {
         switch current {
-        case .debugProduction:
-            return "34e43ac725f3679763f219f9d2de0801"
-        case .debugStaging:
-            return "34e43ac725f3679763f219f9d2de0801"
-        case .releaseProduction:
-            return "34e43ac725f3679763f219f9d2de0801"
-        case .releaseStaging:
+        case .debugProduction,
+                .debugStaging,
+                .releaseProduction,
+                .releaseStaging:
             return "34e43ac725f3679763f219f9d2de0801"
         }
     }
