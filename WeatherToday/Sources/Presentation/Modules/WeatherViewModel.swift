@@ -52,16 +52,17 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
     }
 
     func didFinishTyping(cityName: String) {
-        weatherUseCase.getWeather(forCity: cityName).subscribe {[weak self] event in
-            switch event {
-            case .success(let data):
-                self?.updateWeatherUI(weatherData: data)
-            case .failure(let error):
-                self?.temperatureTextRelay.accept(LocalizedString.temperature_text)
-                self?.humidityTextRelay.accept(LocalizedString.humidity_text)
+        weatherUseCase.getWeather(forCity: cityName).subscribe(
+            with: self,
+            onSuccess: { owner, data in
+                owner.updateWeatherUI(weatherData: data)
+            },
+            onFailure: { owner, error in
                 print(error)
+                owner.updateWeatherUI(weatherData: nil)
             }
-        }.disposed(by: disposeBag)
+        )
+        .disposed(by: disposeBag)
     }
 
     func viewDidLoad() {
@@ -69,14 +70,20 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
         humidityTextRelay.accept(LocalizedString.humidity_text)
     }
 
-    private func updateWeatherUI(weatherData: WeatherApi) {
+    private func updateWeatherUI(weatherData: WeatherApi?) {
+        guard let data = weatherData else {
+            temperatureTextRelay.accept(LocalizedString.temperature_text)
+            humidityTextRelay.accept(LocalizedString.humidity_text)
+            return
+        }
+
         temperatureTextRelay.accept(
             LocalizedString.temperature_text
-                .replacingOccurrences(of: "_", with: String(weatherData.temperature))
+                .replacingOccurrences(of: "_", with: String(data.temperature))
         )
         humidityTextRelay.accept(
             LocalizedString.humidity_text
-                .replacingOccurrences(of: "_", with: String(weatherData.humidity))
+                .replacingOccurrences(of: "_", with: String(data.humidity))
         )
     }
 }

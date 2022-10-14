@@ -20,6 +20,6 @@ final class WeatherUseCase: WeatherUseCaseProtocol {
     }
 
     func getWeather(forCity name: String) -> Single<WeatherApi> {
-        return weatherRepository.getWeatherData(cityName: name)
+        weatherRepository.getWeatherData(cityName: name)
     }
 }

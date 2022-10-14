@@ -12,6 +12,7 @@ struct WeatherApi: Weather, Decodable {
     let humidity: Double
 
     enum CodingKeys: String, CodingKey {
+
         case main
         case temp
         case humidity

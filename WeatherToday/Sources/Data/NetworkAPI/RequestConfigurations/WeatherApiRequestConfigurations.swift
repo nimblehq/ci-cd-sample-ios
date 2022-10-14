@@ -23,8 +23,7 @@ enum WeatherApiRequestConfigurations: RequestConfiguration {
 
     var method: HTTPMethod {
         switch self {
-        case .get(_):
-            return HTTPMethod.get
+        case .get(_): return HTTPMethod.get
         }
     }
 
