@@ -13,12 +13,14 @@ import RxSwift
 protocol WeatherViewModelInput {
 
     func didFinishTyping(cityName: String)
+    func viewDidLoad()
 }
 
 protocol WeatherViewModelOutput {
 
     var temperature: Signal<String> { get }
     var humidity: Signal<String> { get }
+    var cityTextFieldPlaceholderText: String { get }
 }
 
 protocol WeatherViewModelProtocol {
@@ -34,10 +36,11 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
 
     var temperature: Signal<String> = .empty()
     var humidity: Signal<String> = .empty()
+    var cityTextFieldPlaceholderText: String {
+        LocalizedString.city_text_field_placeholder_text
+    }
 
     private let weatherUseCase: WeatherUseCaseProtocol
-    private let initialTemperatureText = "Temperature _ ℃"
-    private let initialHumidityText = "Humidity _ %"
     private var temperatureTextRelay: PublishRelay<String> = .init()
     private var humidityTextRelay: PublishRelay<String> = .init()
     private let disposeBag = DisposeBag()
@@ -54,19 +57,26 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
             case .success(let data):
                 self?.updateWeatherUI(weatherData: data)
             case .failure(let error):
-                self?.temperatureTextRelay.accept(self?.initialTemperatureText ?? "")
-                self?.humidityTextRelay.accept(self?.initialHumidityText ?? "")
+                self?.temperatureTextRelay.accept(LocalizedString.temperature_text)
+                self?.humidityTextRelay.accept(LocalizedString.humidity_text)
                 print(error)
             }
         }.disposed(by: disposeBag)
     }
 
+    func viewDidLoad() {
+        temperatureTextRelay.accept(LocalizedString.temperature_text)
+        humidityTextRelay.accept(LocalizedString.humidity_text)
+    }
+
     private func updateWeatherUI(weatherData: WeatherApi) {
         temperatureTextRelay.accept(
-            initialTemperatureText.replacingOccurrences(of: "_", with: String(weatherData.temperature))
+            LocalizedString.temperature_text
+                .replacingOccurrences(of: "_", with: String(weatherData.temperature))
         )
         humidityTextRelay.accept(
-            initialHumidityText.replacingOccurrences(of: "_", with: String(weatherData.humidity))
+            LocalizedString.humidity_text
+                .replacingOccurrences(of: "_", with: String(weatherData.humidity))
         )
     }
 }

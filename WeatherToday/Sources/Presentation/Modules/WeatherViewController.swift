@@ -25,6 +25,7 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         bindOutput()
+        bindInput()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +35,10 @@ final class WeatherViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         updateConstraintForCurrentOrientation()
+    }
+
+    private func bindInput() {
+        viewModel.input.viewDidLoad()
     }
 
     private func bindOutput() {
@@ -52,7 +57,7 @@ final class WeatherViewController: UIViewController {
         view.backgroundColor = .white
 
         cityTextField.delegate = self
-        cityTextField.placeholder = "Write city name here"
+        cityTextField.placeholder = viewModel.output.cityTextFieldPlaceholderText
         cityTextField.borderStyle = .roundedRect
         cityTextField.backgroundColor = .black
         cityTextField.textColor = .white
@@ -67,7 +72,6 @@ final class WeatherViewController: UIViewController {
         ])
         updateConstraintForCurrentOrientation()
 
-        temperatureLabel.text = "Temperature _ ℃"
         temperatureLabel.textAlignment = .center
         temperatureLabel.textColor = .black
 
@@ -80,7 +84,6 @@ final class WeatherViewController: UIViewController {
             temperatureLabel.heightAnchor.constraint(equalTo: cityTextField.heightAnchor)
         ])
 
-        humidityLabel.text = "Humidity _ %"
         humidityLabel.textAlignment = .center
         humidityLabel.textColor = .black
 
