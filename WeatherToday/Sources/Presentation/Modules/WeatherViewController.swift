@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 final class WeatherViewController: UIViewController {
 
@@ -8,7 +9,11 @@ final class WeatherViewController: UIViewController {
     private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
     private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
 
-    init () {
+    private let disposeBag = DisposeBag()
+    private let viewModel: WeatherViewModelProtocol
+
+    init(viewModel: WeatherViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -18,12 +23,41 @@ final class WeatherViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
+        bindOutput()
+        bindInput()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateConstraintForCurrentOrientation()
+    }
+
+    private func bindInput() {
+        viewModel.input.viewDidLoad()
+    }
+
+    private func bindOutput() {
+        viewModel.output.temperature
+            .emit(to: temperatureLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.output.humidity
+            .emit(to: humidityLabel.rx.text)
+            .disposed(by: disposeBag)
+    }
+
+    private func setUpView() {
         landscapeTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
         portraitTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
         view.backgroundColor = .white
 
         cityTextField.delegate = self
-        cityTextField.placeholder = "Write city name here"
+        cityTextField.placeholder = viewModel.output.cityTextFieldPlaceholderText
         cityTextField.borderStyle = .roundedRect
         cityTextField.backgroundColor = .black
         cityTextField.textColor = .white
@@ -38,7 +72,6 @@ final class WeatherViewController: UIViewController {
         ])
         updateConstraintForCurrentOrientation()
 
-        temperatureLabel.text = "Temperature _ ℃"
         temperatureLabel.textAlignment = .center
         temperatureLabel.textColor = .black
 
@@ -51,7 +84,6 @@ final class WeatherViewController: UIViewController {
             temperatureLabel.heightAnchor.constraint(equalTo: cityTextField.heightAnchor)
         ])
 
-        humidityLabel.text = "Humidity _ %"
         humidityLabel.textAlignment = .center
         humidityLabel.textColor = .black
 
@@ -63,15 +95,6 @@ final class WeatherViewController: UIViewController {
             humidityLabel.widthAnchor.constraint(equalTo: cityTextField.widthAnchor),
             humidityLabel.heightAnchor.constraint(equalTo: cityTextField.heightAnchor)
         ])
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        updateConstraintForCurrentOrientation()
     }
 
     private func updateConstraintForCurrentOrientation() {
@@ -87,6 +110,7 @@ final class WeatherViewController: UIViewController {
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
+        viewModel.input.didFinishTyping(cityName: cityTextField.text ?? "")
         return false
     }
 }

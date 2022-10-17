@@ -26,8 +26,9 @@ extension NetworkAPIProtocol {
             headers: configuration.headers,
             interceptor: configuration.interceptor
         )
+        .validate(statusCode: 200..<300)
         .responseData()
-        .flatMap { _, data -> Observable<T> in
+        .flatMap { response, data -> Observable<T> in
             Observable.create { observer in
                 do {
                     let decodable = try decoder.decode(T.self, from: data)

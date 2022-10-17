@@ -11,3 +11,5 @@ PRODUCT_NAME = $(TARGET_NAME) Staging
 PRODUCT_BUNDLE_IDENTIFIER = com.example.weathertoday
 SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG STAGING
 OTHER_SWIFT_FLAGS = $(inherited) -Xfrontend -warn-long-expression-type-checking=300 -Xfrontend -warn-long-function-bodies=300
+
+WEATHER_API_BASE_URL = api.openweathermap.org
