@@ -1,3 +1,4 @@
+import FirebaseCore
 import UIKit
 
 @main
@@ -9,6 +10,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        configureFireBase()
+
         let networkApi = WeatherNetworkAPI()
         let weatherRepo = WeatherRepository(network: networkApi)
         let weatherUseCase = WeatherUseCase(weatherRepository: weatherRepo)
@@ -19,5 +22,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
         return true
+    }
+
+    private func configureFireBase() {
+        FirebaseApp.configure()
     }
 }

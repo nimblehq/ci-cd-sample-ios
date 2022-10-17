@@ -2,6 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>999217461241-3f401rpic9ofq46vmq7ri7dlag5t2mqh.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.999217461241-3f401rpic9ofq46vmq7ri7dlag5t2mqh</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBMjygLuq-nw3VK5Pc0SCkkhnDSIdzv488</string>
+	<key>GCM_SENDER_ID</key>
+	<string>999217461241</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.weatherToday.fastlanetest</string>
+	<key>PROJECT_ID</key>
+	<string>ci-cd-sample-ios</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ci-cd-sample-ios.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:999217461241:ios:7f30e2afa1e2f45e6f6f28</string>
 </dict>
 </plist>
-<!-- REPLACE WITH GoogleService-Info.plist IN STAGING -->

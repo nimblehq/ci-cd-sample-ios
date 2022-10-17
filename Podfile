@@ -21,6 +21,7 @@ target 'WeatherToday' do
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxSwift'
+  pod 'FirebaseAppDistribution'
 
   target 'WeatherTodayTests' do
     inherit! :search_paths
