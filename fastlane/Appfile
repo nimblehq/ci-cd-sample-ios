@@ -1,8 +1,0 @@
-app_identifier("com.weatherToday.fastlanetest") # The bundle identifier of your app
-apple_id("taher@nimblehq.co") # Your Apple Developer Portal username
-
-itc_team_id("102211802") # App Store Connect Team ID
-team_id("4TWS7E2EPE") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
