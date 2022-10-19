@@ -30,8 +30,7 @@ platform :ios do
       output_directory: "result",
       output_name: "WeatherToday",
       clean: true,
-      export_method: "ad-hoc",
-      xcargs: "-allowProvisioningUpdates"
+      export_method: "ad-hoc"
     )
     firebase_app_distribution(
       app: "1:999217461241:ios:7f30e2afa1e2f45e6f6f28",
