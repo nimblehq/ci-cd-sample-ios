@@ -24,6 +24,8 @@ platform :ios do
     increment_build_number({ build_number: latest_release[:buildVersion].to_i + 1 })
   end
   lane :release_to_firebase do
+    xcversion(version: "13.2.1")
+    setup_ci
     build_app(
       workspace: "WeatherToday.xcworkspace",
       scheme: "WeatherToday",

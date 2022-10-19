@@ -1185,7 +1185,8 @@
 			baseConfigurationReference = 33A3675C5D5C6EE5032162F0 /* Pods-WeatherToday.release production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Nimbl3 Ltd. (4TWS7E2EPE)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1196,6 +1197,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.weatherToday.fastlanetest";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1427,7 +1429,8 @@
 			baseConfigurationReference = 9565F227F607598AA3D49809 /* Pods-WeatherToday.debug staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Nimbl3 Ltd. (4TWS7E2EPE)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
@@ -1439,6 +1442,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.weatherToday.fastlanetest";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG STAGING";
@@ -1454,7 +1458,8 @@
 			baseConfigurationReference = 88986077435F6FFEF293070D /* Pods-WeatherToday.release staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Nimbl3 Ltd. (4TWS7E2EPE)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1465,6 +1470,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.weatherToday.fastlanetest";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1556,7 +1562,8 @@
 			baseConfigurationReference = 1A75F9D0F4FF4D402261099A /* Pods-WeatherToday.debug production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Nimbl3 Ltd. (4TWS7E2EPE)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
@@ -1568,6 +1575,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.weatherToday.fastlanetest";
 				SDKROOT = iphoneos;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG PRODUCTION";
