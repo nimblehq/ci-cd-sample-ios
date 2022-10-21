@@ -27,45 +27,39 @@ final class ApplicationSpec: QuickSpec {
 
                 it("should show default temperature text") {
                     expect(app.staticTexts[defaultTemperatureText].exists) == true
-                }
-
-                it("should show default humidity text") {
                     expect(app.staticTexts[defaultHumidityText].exists) == true
                 }
             }
 
-            describe("city name entered") {
+            context("when invalid city name entered") {
 
-                context("when invalid city name entered") {
-
-                    beforeEach {
-                        let cityNameTextField = app.textFields["Write city name here"]
-                        cityNameTextField.tap()
-                        cityNameTextField.typeText("A")
-                        app.keyboards.buttons["return"].tap()
-                    }
-
-                    it("should show default temperature text") {
-                        expect(app.staticTexts[defaultTemperatureText].exists) == true
-                    }
+                beforeEach {
+                    let cityNameTextField = app.textFields["Write city name here"]
+                    cityNameTextField.tap()
+                    cityNameTextField.typeText("A")
+                    sleep(1)
+                    app.keyboards.buttons["return"].tap()
                 }
 
-                context("when valid city name entered") {
+                it("should show default temperature and humidity text text") {
+                    expect(app.staticTexts[defaultTemperatureText].exists) == true
+                    expect(app.staticTexts[defaultHumidityText].exists) == true
+                }
+            }
 
-                    beforeEach {
-                        let cityNameTextField = app.textFields["Write city name here"]
-                        cityNameTextField.tap()
-                        cityNameTextField.typeText("Dhaka")
-                        app.keyboards.buttons["return"].tap()
-                    }
+            context("when valid city name entered") {
 
-                    it("should not show temperature text with value") {
-                        expect(app.staticTexts.element(matching: temperaturePredicate).waitForExistence(timeout: 4.0)) == true
-                    }
+                beforeEach {
+                    let cityNameTextField = app.textFields["Write city name here"]
+                    cityNameTextField.tap()
+                    cityNameTextField.typeText("Dhaka")
+                    sleep(1)
+                    app.keyboards.buttons["return"].tap()
+                }
 
-                    it("should show humidity text with value") {
-                        expect(app.staticTexts.element(matching: humidityPredicate).waitForExistence(timeout: 4.0)) == true
-                    }
+                it("should not show temperature and humidity text with value") {
+                    expect(app.staticTexts.element(matching: temperaturePredicate).waitForExistence(timeout: 4.0)) == true
+                    expect(app.staticTexts.element(matching: humidityPredicate).waitForExistence(timeout: 4.0)) == true
                 }
             }
         }
