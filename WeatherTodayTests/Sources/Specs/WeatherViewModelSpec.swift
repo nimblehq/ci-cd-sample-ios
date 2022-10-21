@@ -53,25 +53,28 @@ final class WeatherViewModelSpec: QuickSpec {
                 }
             }
 
-            context("when valid city name is provided") {
+            describe("its didFinishTyping") {
 
-                beforeEach {
-                    viewModel.input.didFinishTyping(cityName: "Dhaka")
+                context("when valid city name is provided") {
+
+                    beforeEach {
+                        viewModel.input.didFinishTyping(cityName: "Dhaka")
+                    }
+
+                    it("should show temperature text") {
+                        expect(temperatureText) == "Temperature 30.0 ℃"
+                    }
                 }
 
-                it("should show temperature text") {
-                    expect(temperatureText) == "Temperature 30.0 ℃"
-                }
-            }
+                context("when invalid city name is provided") {
 
-            context("when invalid city name is provided") {
+                    beforeEach {
+                        viewModel.input.didFinishTyping(cityName: "A")
+                    }
 
-                beforeEach {
-                    viewModel.input.didFinishTyping(cityName: "A")
-                }
-
-                it("should show default text") {
-                    expect(temperatureText) == defaultTemperatureText
+                    it("should show default text") {
+                        expect(temperatureText) == defaultTemperatureText
+                    }
                 }
             }
         }
