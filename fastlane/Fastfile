@@ -1,0 +1,13 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Generate IPA"
+  lane :build_and_generate_ipa do
+    build_app(
+      workspace: "WeatherToday.xcworkspace",
+      scheme: "WeatherToday",
+      export_method: "ad-hoc",
+      output_directory: "./result"
+    )
+  end
+end
