@@ -38,7 +38,7 @@ final class ApplicationSpec: QuickSpec {
                     cityNameTextField.tap()
                     cityNameTextField.typeText("A")
                     sleep(1)
-                    app.keyboards.buttons["return"].tap()
+                    app.keyboards.buttons["return"].forceTapElement()
                 }
 
                 it("should show default temperature and humidity text text") {
@@ -54,7 +54,7 @@ final class ApplicationSpec: QuickSpec {
                     cityNameTextField.tap()
                     cityNameTextField.typeText("Dhaka")
                     sleep(1)
-                    app.keyboards.buttons["return"].tap()
+                    app.keyboards.buttons["return"].forceTapElement()
                 }
 
                 it("should not show temperature and humidity text with value") {
@@ -62,6 +62,18 @@ final class ApplicationSpec: QuickSpec {
                     expect(app.staticTexts.element(matching: humidityPredicate).waitForExistence(timeout: 4.0)) == true
                 }
             }
+        }
+    }
+}
+
+extension XCUIElement {
+    func forceTapElement() {
+        if self.isHittable {
+            self.tap()
+        }
+        else {
+            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx:0.0, dy:0.0))
+            coordinate.tap()
         }
     }
 }
