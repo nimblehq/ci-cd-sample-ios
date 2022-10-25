@@ -9,7 +9,7 @@ import RxSwift
 final class WeatherNetworkAPI: NetworkAPIProtocol {
 
     private let decoder: JSONDecoder
-    private let session: Session = Session()
+    private let session: Session = .init()
 
     init(decoder: JSONDecoder = JSONDecoder()) {
         self.decoder = decoder

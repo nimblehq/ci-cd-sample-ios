@@ -12,8 +12,8 @@ import RxSwift
 
 protocol WeatherViewModelInput {
 
-    func didFinishTyping(cityName: String)
     func viewDidLoad()
+    func didFinishTyping(cityName: String)
 }
 
 protocol WeatherViewModelOutput {
@@ -37,7 +37,7 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
     var temperature: Signal<String> = .empty()
     var humidity: Signal<String> = .empty()
     var cityTextFieldPlaceholderText: String {
-        LocalizedString.city_text_field_placeholder_text
+        LocalizedString.cityTextFieldPlaceholderText
     }
 
     private let weatherUseCase: WeatherUseCaseProtocol
@@ -51,38 +51,39 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
         humidity = humidityTextRelay.asSignal()
     }
 
-    func didFinishTyping(cityName: String) {
-        weatherUseCase.getWeather(forCity: cityName).subscribe(
-            with: self,
-            onSuccess: { owner, data in
-                owner.updateWeatherUI(weatherData: data)
-            },
-            onFailure: { owner, error in
-                print(error)
-                owner.updateWeatherUI(weatherData: nil)
-            }
-        )
-        .disposed(by: disposeBag)
+    func viewDidLoad() {
+        temperatureTextRelay.accept(LocalizedString.temperatureText)
+        humidityTextRelay.accept(LocalizedString.humidityText)
     }
 
-    func viewDidLoad() {
-        temperatureTextRelay.accept(LocalizedString.temperature_text)
-        humidityTextRelay.accept(LocalizedString.humidity_text)
+    func didFinishTyping(cityName: String) {
+        weatherUseCase.getWeather(forCity: cityName)
+            .subscribe(
+                with: self,
+                onSuccess: { owner, data in
+                    owner.updateWeatherUI(weatherData: data)
+                },
+                onFailure: { owner, error in
+                    print(error)
+                    owner.updateWeatherUI(weatherData: nil)
+                }
+            )
+            .disposed(by: disposeBag)
     }
 
     private func updateWeatherUI(weatherData: WeatherApi?) {
         guard let data = weatherData else {
-            temperatureTextRelay.accept(LocalizedString.temperature_text)
-            humidityTextRelay.accept(LocalizedString.humidity_text)
+            temperatureTextRelay.accept(LocalizedString.temperatureText)
+            humidityTextRelay.accept(LocalizedString.humidityText)
             return
         }
 
         temperatureTextRelay.accept(
-            LocalizedString.temperature_text
+            LocalizedString.temperatureText
                 .replacingOccurrences(of: "_", with: String(data.temperature))
         )
         humidityTextRelay.accept(
-            LocalizedString.humidity_text
+            LocalizedString.humidityText
                 .replacingOccurrences(of: "_", with: String(data.humidity))
         )
     }

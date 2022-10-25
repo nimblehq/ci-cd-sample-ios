@@ -1,13 +1,13 @@
-import UIKit
 import RxSwift
+import UIKit
 
 final class WeatherViewController: UIViewController {
 
-    private lazy var cityTextField: UITextField = UITextField()
-    private lazy var temperatureLabel: UILabel = UILabel()
-    private lazy var humidityLabel: UILabel = UILabel()
-    private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
-    private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    private lazy var cityTextField: UITextField = .init()
+    private lazy var temperatureLabel: UILabel = .init()
+    private lazy var humidityLabel: UILabel = .init()
+    private var landscapeTopConstraint: NSLayoutConstraint = .init()
+    private var portraitTopConstraint: NSLayoutConstraint = .init()
 
     private let disposeBag = DisposeBag()
     private let viewModel: WeatherViewModelProtocol
@@ -52,8 +52,8 @@ final class WeatherViewController: UIViewController {
     }
 
     private func setUpView() {
-        landscapeTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
-        portraitTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
+        landscapeTopConstraint = cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
+        portraitTopConstraint = cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
         view.backgroundColor = .white
 
         cityTextField.delegate = self
@@ -105,7 +105,6 @@ final class WeatherViewController: UIViewController {
         landscapeTopConstraint.isActive = isLandscape
     }
 }
-
 
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

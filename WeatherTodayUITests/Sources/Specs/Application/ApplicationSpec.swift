@@ -1,3 +1,4 @@
+// swiftlint:disable closure_body_length function_body_length
 import Nimble
 import Quick
 
@@ -58,8 +59,18 @@ final class ApplicationSpec: QuickSpec {
                 }
 
                 it("should not show temperature and humidity text with value") {
-                    expect(app.staticTexts.element(matching: temperaturePredicate).waitForExistence(timeout: 4.0)) == true
-                    expect(app.staticTexts.element(matching: humidityPredicate).waitForExistence(timeout: 4.0)) == true
+                    expect(
+                        app.staticTexts.element(
+                            matching: temperaturePredicate
+                        )
+                        .waitForExistence(timeout: 4.0)
+                    ) == true
+                    expect(
+                        app.staticTexts.element(
+                            matching: humidityPredicate
+                        )
+                        .waitForExistence(timeout: 4.0)
+                    ) == true
                 }
             }
         }
@@ -67,12 +78,17 @@ final class ApplicationSpec: QuickSpec {
 }
 
 extension XCUIElement {
+
     func forceTapElement() {
-        if self.isHittable {
-            self.tap()
-        }
-        else {
-            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx:0.0, dy:0.0))
+        if isHittable {
+            tap()
+        } else {
+            let coordinate: XCUICoordinate = coordinate(
+                withNormalizedOffset: CGVector(
+                    dx: 0.0,
+                    dy: 0.0
+                )
+            )
             coordinate.tap()
         }
     }

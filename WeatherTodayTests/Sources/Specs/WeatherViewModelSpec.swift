@@ -5,14 +5,14 @@
 //  Created by Taher on 20/10/22.
 //  Copyright © 2022 Nimble. All rights reserved.
 //
+// swiftlint:disable closure_body_length
 
-import Quick
 import Nimble
+import Quick
 import RxCocoa
+import RxNimble
 import RxSwift
 import RxTest
-import RxNimble
-
 @testable import WeatherToday
 
 final class WeatherViewModelSpec: QuickSpec {
@@ -31,15 +31,17 @@ final class WeatherViewModelSpec: QuickSpec {
                 useCase = MockWeatherUseCase()
                 viewModel = WeatherViewModel(weatherUseCase: useCase)
                 disposeBag = DisposeBag()
-                viewModel.output.temperature.asObservable().subscribe(
-                    onNext: { data in
-                        temperatureText = data
-                    },
-                    onError: { err in
-                        temperatureText = defaultTemperatureText
-                    }
-                )
-                .disposed(by: disposeBag)
+                viewModel.output.temperature
+                    .asObservable()
+                    .subscribe(
+                        onNext: { data in
+                            temperatureText = data
+                        },
+                        onError: { _ in
+                            temperatureText = defaultTemperatureText
+                        }
+                    )
+                    .disposed(by: disposeBag)
             }
 
             context("when city name is not provided") {
