@@ -23,7 +23,7 @@ enum WeatherApiRequestConfigurations: RequestConfiguration {
 
     var method: HTTPMethod {
         switch self {
-        case .get(_): return HTTPMethod.get
+        case .get: return HTTPMethod.get
         }
     }
 
@@ -33,7 +33,7 @@ enum WeatherApiRequestConfigurations: RequestConfiguration {
 
     var parameters: Parameters? {
         switch self {
-        case .get(let cityName):
+        case let .get(cityName):
             return [
                 "q": cityName,
                 "appid": Configuration.weatherApiKey,

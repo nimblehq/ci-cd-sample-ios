@@ -1,13 +1,21 @@
-import UIKit
+//
+//  WeatherViewController.swift
+//  WeatherToday
+//
+//  Created by Taher on 20/10/22.
+//  Copyright © 2022 Nimble. All rights reserved.
+//
+
 import RxSwift
+import UIKit
 
 final class WeatherViewController: UIViewController {
 
-    private lazy var cityTextField: UITextField = UITextField()
-    private lazy var temperatureLabel: UILabel = UILabel()
-    private lazy var humidityLabel: UILabel = UILabel()
-    private var landscapeTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
-    private var portraitTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    private lazy var cityTextField = UITextField()
+    private lazy var temperatureLabel = UILabel()
+    private lazy var humidityLabel = UILabel()
+    private var landscapeTopConstraint = NSLayoutConstraint()
+    private var portraitTopConstraint = NSLayoutConstraint()
 
     private let disposeBag = DisposeBag()
     private let viewModel: WeatherViewModelProtocol
@@ -52,8 +60,8 @@ final class WeatherViewController: UIViewController {
     }
 
     private func setUpView() {
-        landscapeTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
-        portraitTopConstraint =  cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
+        landscapeTopConstraint = cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60.0)
+        portraitTopConstraint = cityTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 260.0)
         view.backgroundColor = .white
 
         cityTextField.delegate = self
@@ -105,7 +113,6 @@ final class WeatherViewController: UIViewController {
         landscapeTopConstraint.isActive = isLandscape
     }
 }
-
 
 extension WeatherViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import RxSwift
 import RxCocoa
+import RxSwift
 
 final class MockWeatherUseCase: WeatherUseCaseProtocol {
 
     init() {}
 
-    func getWeather(forCity name: String) -> Single<WeatherApi> {
+    func execute(forCity name: String) -> Single<WeatherApi> {
         if name.count < 2 {
             return .error(NetworkAPIError.wrongInputValue)
         }

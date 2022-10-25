@@ -1,5 +1,5 @@
 //
-//  APIWeather.swift
+//  WeatherApi.swift
 //  WeatherToday
 //
 //  Created by Taher on 7/10/22.
@@ -8,15 +8,15 @@
 
 struct WeatherApi: Weather, Decodable {
 
-    let temperature: Double
-    let humidity: Double
-
     enum CodingKeys: String, CodingKey {
 
         case main
         case temp
         case humidity
     }
+
+    let humidity: Double
+    let temperature: Double
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

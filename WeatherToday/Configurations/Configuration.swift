@@ -19,13 +19,13 @@ enum Configuration: String {
 
     static let current: Configuration = {
         #if DEBUG && PRODUCTION
-        return .debugProduction
+            return .debugProduction
         #elseif DEBUG && STAGING
-        return .debugStaging
+            return .debugStaging
         #elseif RELEASE && STAGING
-        return .releaseStaging
+            return .releaseStaging
         #elseif RELEASE && PRODUCTION
-        return .releaseProduction
+            return .releaseProduction
         #endif
     }()
 
@@ -40,9 +40,9 @@ enum Configuration: String {
     static var weatherApiKey: String {
         switch current {
         case .debugProduction,
-                .debugStaging,
-                .releaseProduction,
-                .releaseStaging:
+             .debugStaging,
+             .releaseProduction,
+             .releaseStaging:
             return "34e43ac725f3679763f219f9d2de0801"
         }
     }
