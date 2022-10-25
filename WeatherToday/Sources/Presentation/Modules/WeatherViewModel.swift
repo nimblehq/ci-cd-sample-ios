@@ -57,7 +57,7 @@ final class WeatherViewModel: WeatherViewModelProtocol, WeatherViewModelOutput, 
     }
 
     func didFinishTyping(cityName: String) {
-        weatherUseCase.getWeather(forCity: cityName)
+        weatherUseCase.execute(forCity: cityName)
             .subscribe(
                 with: self,
                 onSuccess: { owner, data in

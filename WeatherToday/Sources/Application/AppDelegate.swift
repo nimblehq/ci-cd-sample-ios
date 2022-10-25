@@ -11,7 +11,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         let networkApi = WeatherNetworkAPI()
         let weatherRepo = WeatherRepository(network: networkApi)
-        let weatherUseCase = WeatherUseCase(weatherRepository: weatherRepo)
+        let weatherUseCase = GetWeatherUseCase(weatherRepository: weatherRepo)
         let weatherViewModel: WeatherViewModelProtocol = WeatherViewModel(weatherUseCase: weatherUseCase)
         let weatherViewController = WeatherViewController(viewModel: weatherViewModel)
         let navController = UINavigationController(rootViewController: weatherViewController)

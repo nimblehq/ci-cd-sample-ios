@@ -6,5 +6,5 @@ import RxSwift
 
 protocol WeatherUseCaseProtocol: AnyObject {
 
-    func getWeather(forCity name: String) -> Single<WeatherApi>
+    func execute(forCity name: String) -> Single<WeatherApi>
 }

@@ -1,13 +1,21 @@
+//
+//  WeatherViewController.swift
+//  WeatherToday
+//
+//  Created by Taher on 20/10/22.
+//  Copyright © 2022 Nimble. All rights reserved.
+//
+
 import RxSwift
 import UIKit
 
 final class WeatherViewController: UIViewController {
 
-    private lazy var cityTextField: UITextField = .init()
-    private lazy var temperatureLabel: UILabel = .init()
-    private lazy var humidityLabel: UILabel = .init()
-    private var landscapeTopConstraint: NSLayoutConstraint = .init()
-    private var portraitTopConstraint: NSLayoutConstraint = .init()
+    private lazy var cityTextField = UITextField()
+    private lazy var temperatureLabel = UILabel()
+    private lazy var humidityLabel = UILabel()
+    private var landscapeTopConstraint = NSLayoutConstraint()
+    private var portraitTopConstraint = NSLayoutConstraint()
 
     private let disposeBag = DisposeBag()
     private let viewModel: WeatherViewModelProtocol

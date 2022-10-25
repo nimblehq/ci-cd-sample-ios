@@ -1,5 +1,5 @@
 //
-//  WeatherUseCase.swift
+//  GetWeatherUseCase.swift
 //  WeatherToday
 //
 //  Created by Taher on 22/10/22.
@@ -10,7 +10,7 @@ import Alamofire
 import RxCocoa
 import RxSwift
 
-final class WeatherUseCase: WeatherUseCaseProtocol {
+final class GetWeatherUseCase: WeatherUseCaseProtocol {
 
     private let weatherRepository: WeatherRepositoryProtocol
 
@@ -18,7 +18,7 @@ final class WeatherUseCase: WeatherUseCaseProtocol {
         self.weatherRepository = weatherRepository
     }
 
-    func getWeather(forCity name: String) -> Single<WeatherApi> {
+    func execute(forCity name: String) -> Single<WeatherApi> {
         weatherRepository.getWeatherData(cityName: name)
     }
 }
