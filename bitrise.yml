@@ -1,0 +1,172 @@
+---
+format_version: '11'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: ios
+workflows:
+  DeployFirebase:
+    description: |
+      The workflow builds and deploys the app in Firebase and Bitrise step.
+
+      For testing the *retry_on_failure* test repetition mode is enabled.
+
+      Next steps:
+      - Set up [Connecting to an Apple service with API key](https://devcenter.bitrise.io/en/accounts/connecting-to-services/connecting-to-an-apple-service-with-api-key.html##).
+      - Or further customise code signing following our [iOS code signing](https://devcenter.bitrise.io/en/code-signing/ios-code-signing.html) guide.
+    steps:
+    - authenticate-host-with-netrc@0:
+        inputs:
+        - username: "$GITHUB_USER_NAME"
+        - password: "$GITHUB_PASSWORD"
+        - host: github.com
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - cocoapods-install@2: {}
+    - fastlane-match@0:
+        title: Fastlane Match Development
+        inputs:
+        - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
+        - app_id: "$APP_BUNDLE_ID"
+        - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
+        - decrypt_password: "$FASTLANE_MATCH_PASSWORD"
+        - git_url: "$FASTLANE_MATCH_GIT_URL"
+    - fastlane-match@0:
+        title: Fastlane Match Adhoc
+        inputs:
+        - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
+        - app_id: "$APP_BUNDLE_ID"
+        - decrypt_password: "$FASTLANE_MATCH_PASSWORD"
+        - type: adhoc
+        - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
+        - git_url: "$FASTLANE_MATCH_GIT_URL"
+    - fastlane@3:
+        inputs:
+        - work_dir: "./fastlane"
+        - update_fastlane: 'false'
+        - apple_id: "$APPLE_ID_TAHER"
+        - password: "$APPLE_ID_TAHER_PASS"
+        - app_password: "$APPLE_TAHER_APP_SPECIFIC_PASS"
+        - lane: "$FASTLANE_LANE_TO_RUN"
+    - cache-push@2: {}
+    - firebase-app-distribution@0:
+        inputs:
+        - app: 1:999217461241:ios:7f30e2afa1e2f45e6f6f28
+        - groups: ci-cd-project-weather-today-testers
+        - release_notes_file: ''
+        - release_notes: Release from Bitrise
+        - app_path: "$FAST_LANE_IPA_PATH"
+        - firebase_token: "$FIREBASE_TOKEN"
+    - deploy-to-bitrise-io@2: {}
+  primary:
+    description: |
+      The workflow executes the tests. The *retry_on_failure* test repetition mode is enabled.
+
+      Next steps:
+      - Check out [Getting started with iOS apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-ios-apps.html).
+    steps:
+    - script@1:
+        title: Clean Directory Script
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            # fail if any commands fails
+            set -e
+            # make pipelines' return status equal the last command to exit with a non-zero status, or zero if all commands exit successfully
+            set -o pipefail
+            # debug log
+            set -x
+
+            # write your script here
+            if [ -d "xcov_report" ]
+            then
+              rm -r xcov_report
+            fi
+            if [ -d "result" ]
+            then
+              rm -r result
+            fi
+            if [ -d ".output" ]
+            then
+              rm -r .output
+            fi
+            # or run a script from your repository, like:
+            # bash ./path/to/script.sh
+            # not just bash, e.g.:
+            # ruby ./path/to/script.rb
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - cocoapods-install@2: {}
+    - script@1:
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+
+            set -e
+            set -x
+
+            # write your script here
+
+            xcrun xcodebuild -workspace WeatherToday.xcworkspace -scheme WeatherToday -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=15.2' -derivedDataPath '.output' test
+
+            mkdir result
+
+            find .output -iname '*.xcresult' |  xargs  -I _ cp -R _ result
+
+            find result -iname '*.xcresult' |  xargs  -I _ mv _ result/WeatherTestResult.xcresult
+        title: Script For Xcode Build Test And Gather Output
+    - danger@2:
+        inputs:
+        - github_api_token: "$DANGER_GITHUB_API_TOKEN"
+    - cache-push@2: {}
+    - deploy-to-bitrise-io@2: {}
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.2.x
+    machine_type_id: g2.8core
+app:
+  envs:
+  - opts:
+      is_expand: false
+    BITRISE_PROJECT_PATH: WeatherToday.xcworkspace
+  - opts:
+      is_expand: false
+    BITRISE_SCHEME: WeatherToday
+  - opts:
+      is_expand: false
+    BITRISE_DISTRIBUTION_METHOD: development
+  - opts:
+      is_expand: false
+    BITRISE_DEPLOY_DIR: result
+  - opts:
+      is_expand: false
+    BITRISE_XCRESULT_PATH: result
+  - opts:
+      is_expand: false
+    BITRISE_XCODE_TEST_RESULT: result
+  - opts:
+      is_expand: false
+    BITRISE_APLLE_DEV_TEAM_ID: 4TWS7E2EPE
+  - opts:
+      is_expand: false
+    FASTLANE_MATCH_GIT_URL: https://github.com/nimblehq/match-certificates.git
+  - opts:
+      is_expand: false
+    APP_BUNDLE_ID: com.weatherToday.fastlanetest
+  - opts:
+      is_expand: false
+    FASTLANE_MATCH_GIT_BRANCH: master
+  - opts:
+      is_expand: false
+    FASTLANE_MATCH_PASSWORD: Pk8UiEqEFeaqTKknbHQDWezT
+  - opts:
+      is_expand: false
+    FAST_LANE_IPA_PATH: "./result/WeatherToday.ipa"
+  - opts:
+      is_expand: false
+    FASTLANE_LANE_TO_RUN: build_and_generate_ipa
+trigger_map:
+- pull_request_source_branch: release/*
+  pull_request_target_branch: main
+  workflow: DeployFirebase
+- pull_request_source_branch: *
+  pull_request_target_branch: develop
+  workflow: primary
