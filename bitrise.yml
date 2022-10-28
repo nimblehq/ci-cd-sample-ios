@@ -27,14 +27,14 @@ workflows:
         - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
         - app_id: "$APP_BUNDLE_ID"
         - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
-        - decrypt_password: "$FASTLANE_MATCH_PASSWORD"
+        - decrypt_password: "$MATCH_PASSWORD"
         - git_url: "$FASTLANE_MATCH_GIT_URL"
     - fastlane-match@0:
         title: Fastlane Match Adhoc
         inputs:
         - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
         - app_id: "$APP_BUNDLE_ID"
-        - decrypt_password: "$FASTLANE_MATCH_PASSWORD"
+        - decrypt_password: "$MATCH_PASSWORD"
         - type: adhoc
         - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
         - git_url: "$FASTLANE_MATCH_GIT_URL"
@@ -49,7 +49,7 @@ workflows:
     - cache-push@2: {}
     - firebase-app-distribution@0:
         inputs:
-        - app: 1:999217461241:ios:7f30e2afa1e2f45e6f6f28
+        - app: "$FIREBASE_APP_ID"
         - groups: ci-cd-project-weather-today-testers
         - release_notes_file: ''
         - release_notes: Release from Bitrise
@@ -156,17 +156,12 @@ app:
     FASTLANE_MATCH_GIT_BRANCH: master
   - opts:
       is_expand: false
-    FASTLANE_MATCH_PASSWORD: Pk8UiEqEFeaqTKknbHQDWezT
-  - opts:
-      is_expand: false
     FAST_LANE_IPA_PATH: "./result/WeatherToday.ipa"
   - opts:
       is_expand: false
     FASTLANE_LANE_TO_RUN: build_and_generate_ipa
 trigger_map:
-- pull_request_source_branch: release/*
-  pull_request_target_branch: main
+- push_branch: main
   workflow: DeployFirebase
-- pull_request_source_branch: *
-  pull_request_target_branch: develop
+- pull_request_target_branch: "*"
   workflow: primary
