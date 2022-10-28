@@ -55,35 +55,6 @@ workflows:
       Next steps:
       - Check out [Getting started with iOS apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-ios-apps.html).
     steps:
-    - script@1:
-        title: Clean Directory Script
-        inputs:
-        - content: |-
-            #!/usr/bin/env bash
-            # fail if any commands fails
-            set -e
-            # make pipelines' return status equal the last command to exit with a non-zero status, or zero if all commands exit successfully
-            set -o pipefail
-            # debug log
-            set -x
-
-            # write your script here
-            if [ -d "xcov_report" ]
-            then
-              rm -r xcov_report
-            fi
-            if [ -d "result" ]
-            then
-              rm -r result
-            fi
-            if [ -d ".output" ]
-            then
-              rm -r .output
-            fi
-            # or run a script from your repository, like:
-            # bash ./path/to/script.sh
-            # not just bash, e.g.:
-            # ruby ./path/to/script.rb
     - git-clone@6: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
@@ -152,6 +123,3 @@ app:
   - opts:
       is_expand: false
     FASTLANE_LANE_TO_RUN: build_and_generate_ipa
-trigger_map:
-- push_branch: "*"
-  workflow: DeployFirebase
