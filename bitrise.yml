@@ -22,14 +22,6 @@ workflows:
     - cache-pull@2: {}
     - cocoapods-install@2: {}
     - fastlane-match@0:
-        title: Fastlane Match Development
-        inputs:
-        - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
-        - app_id: "$APP_BUNDLE_ID"
-        - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
-        - decrypt_password: "$MATCH_PASSWORD"
-        - git_url: "$FASTLANE_MATCH_GIT_URL"
-    - fastlane-match@0:
         title: Fastlane Match Adhoc
         inputs:
         - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
@@ -161,7 +153,5 @@ app:
       is_expand: false
     FASTLANE_LANE_TO_RUN: build_and_generate_ipa
 trigger_map:
-- push_branch: main
+- push_branch: "*"
   workflow: DeployFirebase
-- pull_request_target_branch: "*"
-  workflow: primary
