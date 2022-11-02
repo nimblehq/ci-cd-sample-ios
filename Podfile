@@ -11,12 +11,10 @@ def testing_pods
   # Currently, there is a bug on `1.8.1` - the newest version.
   pod 'Sourcery', '1.8.0'
   pod 'SwiftFormat/CLI'
+  pod 'SwiftLint'
 end
 
-target '{PROJECT_NAME}' do
-  # UI
-  pod 'Kingfisher'
-  pod 'SnapKit'
+target 'WeatherToday' do
 
   # Rx
   pod 'RxAlamofire'
@@ -24,26 +22,12 @@ target '{PROJECT_NAME}' do
   pod 'RxDataSources'
   pod 'RxSwift'
 
-  # Storage
-  pod 'KeychainAccess'
-
-  # Tools
-  pod 'Firebase/Crashlytics'
-  pod 'IQKeyboardManagerSwift'
-  pod 'NimbleExtension', :git => 'https://github.com/nimblehq/NimbleExtension', :branch => 'master'
-  pod 'R.swift'
-  pod 'Resolver' # Needs Cocoapods on iOS 11 to support Resolver
-
-  # Development
-  pod 'SwiftLint'
-  pod 'Wormholy', :configurations => ['Debug Staging', 'Debug Production']
-
-  target '{PROJECT_NAME}Tests' do
+  target 'WeatherTodayTests' do
     inherit! :search_paths
     testing_pods
   end
 
-  target '{PROJECT_NAME}UITests' do
+  target 'WeatherTodayUITests' do
     testing_pods
   end
 end

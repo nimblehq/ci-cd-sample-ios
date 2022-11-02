@@ -1,0 +1,90 @@
+PODS:
+  - Alamofire (5.6.2)
+  - Differentiator (5.0.0)
+  - Nimble (10.0.0)
+  - Quick (5.0.1)
+  - RxAlamofire (6.1.1):
+    - RxAlamofire/Core (= 6.1.1)
+  - RxAlamofire/Core (6.1.1):
+    - Alamofire (~> 5.4)
+    - RxSwift (~> 6.0)
+  - RxBlocking (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxNimble/Core (6.0.0):
+    - Nimble (~> 10.0)
+    - RxSwift (~> 6.0)
+  - RxNimble/RxBlocking (6.0.0):
+    - RxBlocking
+    - RxNimble/Core
+  - RxNimble/RxTest (6.0.0):
+    - RxNimble/Core
+    - RxTest
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - RxTest (6.5.0):
+    - RxSwift (= 6.5.0)
+  - Sourcery (1.8.0):
+    - Sourcery/CLI-Only (= 1.8.0)
+  - Sourcery/CLI-Only (1.8.0)
+  - SwiftFormat/CLI (0.49.18)
+  - SwiftLint (0.49.1)
+
+DEPENDENCIES:
+  - Nimble
+  - Quick
+  - RxAlamofire
+  - RxCocoa
+  - RxDataSources
+  - RxNimble/RxBlocking
+  - RxNimble/RxTest
+  - RxSwift
+  - Sourcery (= 1.8.0)
+  - SwiftFormat/CLI
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Differentiator
+    - Nimble
+    - Quick
+    - RxAlamofire
+    - RxBlocking
+    - RxCocoa
+    - RxDataSources
+    - RxNimble
+    - RxRelay
+    - RxSwift
+    - RxTest
+    - Sourcery
+    - SwiftFormat
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
+  Quick: 749aa754fd1e7d984f2000fe051e18a3a9809179
+  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
+  RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxNimble: 04caf11bd7e8f7669d68ef69b8fdfe41552c1ef2
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
+  Sourcery: 6f5fe49b82b7e02e8c65560cbd52e1be67a1af2e
+  SwiftFormat: 2402d29b26746f169cce5454d5af88314cbb2e35
+  SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
+
+PODFILE CHECKSUM: 004de57fcc92d3d8885727f0f0cb45fdfa900f9c
+
+COCOAPODS: 1.11.3

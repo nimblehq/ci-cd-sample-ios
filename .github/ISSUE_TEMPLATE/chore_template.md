@@ -9,6 +9,6 @@ labels: "type : chore"
 
 Describe the update details and why it's needed. 
  
-## Who Benefits?
+## Acceptance Criteria
 
-Describe who will be the beneficiaries e.g. everyone, specific chapters, clients...
+Describe tasks in details

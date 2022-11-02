@@ -2,187 +2,131 @@
 format_version: '11'
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: ios
-trigger_map:
-- push_branch: develop
-  workflow: deploy_staging
-- push_branch: master
-  workflow: deploy_app_store
-- push_branch: main
-  workflow: deploy_app_store
-- push_branch: release
-  workflow: deploy_release_firebase
-- push_branch: "*"
-  workflow: test
 workflows:
-  deploy_app_store:
+  DeployFirebase:
+    description: |
+      The workflow builds and deploys the app in Firebase and Bitrise step.
+
+      For testing the *retry_on_failure* test repetition mode is enabled.
+
+      Next steps:
+      - Set up [Connecting to an Apple service with API key](https://devcenter.bitrise.io/en/accounts/connecting-to-services/connecting-to-an-apple-service-with-api-key.html##).
+      - Or further customise code signing following our [iOS code signing](https://devcenter.bitrise.io/en/code-signing/ios-code-signing.html) guide.
     steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - script@1:
+    - authenticate-host-with-netrc@0:
         inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
-            echo "Gem cache directory: $RBENV_DIR"
-            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
-        title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
+        - username: "$GITHUB_USER_NAME"
+        - password: "$GITHUB_PASSWORD"
+        - host: github.com
+    - git-clone@6: {}
     - cache-pull@2: {}
     - cocoapods-install@2: {}
-    - xcode-test@4.0: {}
     - fastlane-match@0:
+        title: Fastlane Match Adhoc
         inputs:
-        - type: appstore
-        - team_id: "$TEAM_ID"
+        - git_branch: "$FASTLANE_MATCH_GIT_BRANCH"
+        - app_id: "$APP_BUNDLE_ID"
         - decrypt_password: "$MATCH_PASSWORD"
-        - git_url: "$MATCH_REPO_URL"
-        - app_id: "$BUNDLE_ID"
-    - fastlane@3:
-        title: Build and upload Production app to App Store
-        inputs:
-        - lane: build_and_upload_appstore_app
-    - cache-push@2:
-        inputs:
-        - cache_paths: |-
-            ./Pods -> ./Podfile.lock
-            $BITRISE_CACHE_DIR
-            $GEM_CACHE_PATH
-    envs:
-    - opts:
-        is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
-    - opts:
-        is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
-  deploy_release_firebase:
-    steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - script@1:
-        inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
-            echo "Gem cache directory: $RBENV_DIR"
-            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
-        title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - cocoapods-install@2: {}
-    - xcode-test@4.0: {}
-    - fastlane-match@0:
-        inputs:
-        - type: appstore
-        - team_id: "$TEAM_ID"
-        - app_id: "$BUNDLE_ID"
-        - git_url: "$MATCH_REPO_URL"
-        - decrypt_password: "$MATCH_PASSWORD"
-    - fastlane@3:
-        title: Build and Upload Production App
-        inputs:
-        - lane: build_and_upload_production_app
-    - cache-push@2:
-        inputs:
-        - cache_paths: |-
-            ./Pods -> ./Podfile.lock
-            $BITRISE_CACHE_DIR
-            $GEM_CACHE_PATH
-    envs:
-    - opts:
-        is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_PRODUCTION}
-    - opts:
-        is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME}
-  deploy_staging:
-    steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - script@1:
-        inputs:
-        - content: |-
-            #!/bin/bash
-            set -ex
-            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
-            echo "Gem cache directory: $RBENV_DIR"
-            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
-        title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - cocoapods-install@2: {}
-    - xcode-test@4.0: {}
-    - fastlane-match@0:
-        inputs:
         - type: adhoc
-        - team_id: "$TEAM_ID"
-        - app_id: "$BUNDLE_ID"
-        - git_url: "$MATCH_REPO_URL"
-        - decrypt_password: "$MATCH_PASSWORD"
+        - team_id: "$BITRISE_APLLE_DEV_TEAM_ID"
+        - git_url: "$FASTLANE_MATCH_GIT_URL"
     - fastlane@3:
-        title: Build and Upload Staging App
         inputs:
-        - lane: build_and_upload_staging_app
-    - cache-push@2:
+        - work_dir: "./fastlane"
+        - update_fastlane: 'false'
+        - apple_id: "$APPLE_ID_TAHER"
+        - password: "$APPLE_ID_TAHER_PASS"
+        - app_password: "$APPLE_TAHER_APP_SPECIFIC_PASS"
+        - lane: "$FASTLANE_LANE_TO_RUN"
+    - cache-push@2: {}
+    - firebase-app-distribution@0:
         inputs:
-        - cache_paths: |-
-            ./Pods -> ./Podfile.lock
-            $BITRISE_CACHE_DIR
-            $GEM_CACHE_PATH
-    envs:
-    - opts:
-        is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
-    - opts:
-        is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
-  test:
+        - app: "$FIREBASE_APP_ID"
+        - groups: ci-cd-project-weather-today-testers
+        - release_notes_file: "$RELEASE_NOTE_FILE"
+        - release_notes: Release from Bitrise
+        - app_path: "$FAST_LANE_IPA_PATH"
+        - firebase_token: "$FIREBASE_TOKEN"
+    - deploy-to-bitrise-io@2: {}
+  primary:
+    description: |
+      The workflow executes the tests. The *retry_on_failure* test repetition mode is enabled.
+
+      Next steps:
+      - Check out [Getting started with iOS apps](https://devcenter.bitrise.io/en/getting-started/getting-started-with-ios-apps.html).
     steps:
-    - activate-ssh-key@4:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6: {}
+    - cache-pull@2: {}
+    - cocoapods-install@2: {}
     - script@1:
         inputs:
         - content: |-
-            #!/bin/bash
-            set -ex
-            RBENV_DIR="`cd $(rbenv which ruby)/../..;pwd`"
-            echo "Gem cache directory: $RBENV_DIR"
-            envman add --key GEM_CACHE_PATH --value $RBENV_DIR
-        title: Set GEM_CACHE_PATH env var
-    - git-clone@6.1: {}
-    - cache-pull@2: {}
-    - cocoapods-install@2: {}
-    - fastlane@3:
-        inputs:
-        - lane: build_and_test
-    - fastlane@3:
-        inputs:
-        - lane: clean_up_xcov
+            #!/usr/bin/env bash
+
+            set -e
+            set -x
+
+
+            xcrun xcodebuild -workspace WeatherToday.xcworkspace -scheme WeatherToday -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12 Pro,OS=15.2' -derivedDataPath '.output' test
+
+            mkdir result
+
+            find .output -iname '*.xcresult' |  xargs  -I _ cp -R _ result
+
+            find result -iname '*.xcresult' |  xargs  -I _ mv _ result/WeatherTestResult.xcresult
+        title: Script For Xcode Build Test And Gather Output
     - danger@2:
         inputs:
         - github_api_token: "$DANGER_GITHUB_API_TOKEN"
-    - cache-push@2:
-        inputs:
-        - cache_paths: |-
-            ./Pods -> ./Podfile.lock
-            $BITRISE_CACHE_DIR
-            $GEM_CACHE_PATH
-    envs:
-    - opts:
-        is_expand: false
-      BUNDLE_ID: {BUNDLE_ID_STAGING}
-    - opts:
-        is_expand: false
-      BITRISE_SCHEME: {PROJECT_NAME} Staging
+    - cache-push@2: {}
+    - deploy-to-bitrise-io@2: {}
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.2.x
+    machine_type_id: g2.8core
 app:
   envs:
   - opts:
       is_expand: false
-    BITRISE_PROJECT_PATH: {PROJECT_NAME}.xcworkspace
+    BITRISE_PROJECT_PATH: WeatherToday.xcworkspace
   - opts:
       is_expand: false
-    TEAM_ID: TEAMID
+    BITRISE_SCHEME: WeatherToday
   - opts:
       is_expand: false
-    MATCH_REPO_URL: https://github.com/nimblehq/fastlane-match.git
+    BITRISE_DISTRIBUTION_METHOD: development
+  - opts:
+      is_expand: false
+    BITRISE_DEPLOY_DIR: result
+  - opts:
+      is_expand: false
+    BITRISE_XCRESULT_PATH: result
+  - opts:
+      is_expand: false
+    BITRISE_XCODE_TEST_RESULT: result
+  - opts:
+      is_expand: false
+    BITRISE_APLLE_DEV_TEAM_ID: 4TWS7E2EPE
+  - opts:
+      is_expand: false
+    FASTLANE_MATCH_GIT_URL: https://github.com/nimblehq/match-certificates.git
+  - opts:
+      is_expand: false
+    APP_BUNDLE_ID: com.weatherToday.fastlanetest
+  - opts:
+      is_expand: false
+    FASTLANE_MATCH_GIT_BRANCH: master
+  - opts:
+      is_expand: false
+    FAST_LANE_IPA_PATH: "./result/WeatherToday.ipa"
+  - opts:
+      is_expand: false
+    FASTLANE_LANE_TO_RUN: build_and_generate_ipa
+  - opts:
+      is_expand: false
+    RELEASE_NOTE_FILE: "./ReleaseNote.txt"
+trigger_map:
+- push_branch: main
+  workflow: DeployFirebase
+- pull_request_source_branch: "*"
+  workflow: primary
