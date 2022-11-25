@@ -43,7 +43,7 @@ workflows:
         inputs:
         - app: "$FIREBASE_APP_ID"
         - groups: ci-cd-project-weather-today-testers
-        - release_notes_file: "$RELEASE_NOTE_FILE"
+        - release_notes_file: ''
         - release_notes: Release from Bitrise
         - app_path: "$FAST_LANE_IPA_PATH"
         - firebase_token: "$FIREBASE_TOKEN"
@@ -122,11 +122,3 @@ app:
   - opts:
       is_expand: false
     FASTLANE_LANE_TO_RUN: build_and_generate_ipa
-  - opts:
-      is_expand: false
-    RELEASE_NOTE_FILE: "./ReleaseNote.txt"
-trigger_map:
-- push_branch: main
-  workflow: DeployFirebase
-- pull_request_source_branch: "*"
-  workflow: primary

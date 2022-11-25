@@ -1,9 +1,0 @@
-Released Version : 0.1.0
-
-Feature: User can see temperature and humidity by providing a valid city name.
-
-Task completed:
-
-- Create app with minimum feature
-- Create CI pipeline using Bitrise
-- Created CD pipeline using Fastlane, Firebase in Bitrise

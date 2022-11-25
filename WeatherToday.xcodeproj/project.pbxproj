@@ -327,13 +327,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3B0B1253902AC48D789561D9 /* RequestConfigurations */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RequestConfigurations;
-			sourceTree = "<group>";
-		};
 		41641223638AE9AD746B5FC5 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,7 +350,6 @@
 				09243549FBDB18408012B6EC /* Core */,
 				2F17FEA061E4702B3DFE3CE7 /* Interceptors */,
 				F859B12BB726116FA40EB095 /* Models */,
-				3B0B1253902AC48D789561D9 /* RequestConfigurations */,
 				43907E18C71A4FD7FBDB1966 /* WeatherNetworkAPI.swift */,
 			);
 			path = NetworkAPI;
@@ -1181,7 +1173,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1190,7 +1181,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
 				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.weatherToday.fastlanetest";
@@ -1429,7 +1419,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1438,7 +1427,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.weatherToday.fastlanetest";
@@ -1459,7 +1447,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1468,7 +1455,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.weatherToday.fastlanetest";
@@ -1566,7 +1552,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 4TWS7E2EPE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WeatherToday/Configurations/Plists/Info.plist;
@@ -1575,7 +1560,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.weatherToday.fastlanetest;
 				PRODUCT_NAME = WeatherToday;
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.weatherToday.fastlanetest";
