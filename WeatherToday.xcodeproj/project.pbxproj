@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		040DBD7A28F411F600462092 /* WeatherApiRequestConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040DBD7928F411F600462092 /* WeatherApiRequestConfigurations.swift */; };
 		0410B9C728F028630048F9B2 /* WeatherRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B9C628F028630048F9B2 /* WeatherRepositoryProtocol.swift */; };
 		0410B9C928F029D10048F9B2 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B9C828F029D10048F9B2 /* Weather.swift */; };
 		0410B9CB28F02CA70048F9B2 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B9CA28F02CA70048F9B2 /* WeatherViewModel.swift */; };
@@ -95,7 +94,6 @@
 
 /* Begin PBXFileReference section */
 		03ED63CB7BC911BF24D982E6 /* NetworkAPIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPIProtocol.swift; sourceTree = "<group>"; };
-		040DBD7928F411F600462092 /* WeatherApiRequestConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherApiRequestConfigurations.swift; sourceTree = "<group>"; };
 		0410B9C628F028630048F9B2 /* WeatherRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepositoryProtocol.swift; sourceTree = "<group>"; };
 		0410B9C828F029D10048F9B2 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		0410B9CA28F02CA70048F9B2 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 		3B0B1253902AC48D789561D9 /* RequestConfigurations */ = {
 			isa = PBXGroup;
 			children = (
-				040DBD7928F411F600462092 /* WeatherApiRequestConfigurations.swift */,
 			);
 			path = RequestConfigurations;
 			sourceTree = "<group>";
@@ -980,7 +977,6 @@
 			files = (
 				27FC6FEAD6990B1FFB30104C /* AppDelegate.swift in Sources */,
 				70038E46024D488F68AF19A6 /* Constants+API.swift in Sources */,
-				040DBD7A28F411F600462092 /* WeatherApiRequestConfigurations.swift in Sources */,
 				0410B9CD28F02DA80048F9B2 /* WeatherRepository.swift in Sources */,
 				18A82EAF62230112C12EA34C /* Constants.swift in Sources */,
 				0410B9CF28F04B430048F9B2 /* WeatherApi.swift in Sources */,
