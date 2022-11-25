@@ -2,38 +2,55 @@
 //  RequestConfiguration.swift
 //
 
-import Alamofire
 import Foundation
+import Moya
 
-protocol RequestConfiguration {
-
-    var baseURL: String { get }
-
-    var endpoint: String { get }
-
-    var method: HTTPMethod { get }
-
-    var url: URLConvertible { get }
-
-    var parameters: Parameters? { get }
-
-    var encoding: ParameterEncoding { get }
-
-    var headers: HTTPHeaders? { get }
-
-    var interceptor: RequestInterceptor? { get }
+enum RequestConfiguration {
+    case weather(cityName: String)
 }
 
-extension RequestConfiguration {
+extension RequestConfiguration: TargetType {
 
-    var url: URLConvertible {
-        let url = URL(string: baseURL)?.appendingPathComponent(endpoint)
-        return url?.absoluteString ?? "\(baseURL)\(endpoint)"
+    var baseURL: URL { URL(string: Configuration.baseWeatherURL)! }
+
+    var path: String {
+        switch self {
+        case .weather:
+            return "data/2.5/weather"
+        }
     }
 
-    var parameters: Parameters? { nil }
+    var method: Moya.Method {
+        switch self {
+        case .weather:
+            return .get
+        }
+    }
 
-    var headers: HTTPHeaders? { nil }
+    var task: Moya.Task {
 
-    var interceptor: RequestInterceptor? { nil }
+        switch self {
+        case .weather(let cityName):
+                return Task.requestParameters(
+                    parameters: [
+                        "q": cityName,
+                        "appid": Configuration.weatherApiKey,
+                        "units": "metric"
+                    ],
+                    encoding: URLEncoding.default
+                )
+        }
+    }
+
+    var headers: [String : String]? { ["Content-Type": "application/json"] }
+
+    // Optional Stub
+    var sampleData: Data {
+        return Data()
+    }
+
+    // Optional Stub
+    var validationType: ValidationType {
+        return .successCodes
+    }
 }

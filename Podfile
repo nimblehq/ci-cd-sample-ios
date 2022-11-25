@@ -17,7 +17,7 @@ end
 target 'WeatherToday' do
 
   # Rx
-  pod 'RxAlamofire'
+  pod 'Moya/RxSwift'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxSwift'
